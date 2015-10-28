@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+// Base name of the apk
+project.archivesBaseName = "SignsOn";
+
+def versionMajor = 2
+def versionMinor = 2
+def versionPatch = 0
+def versionBuild = 0
+
+// For local builds, set the build number to be the max allowed by versionCodeGen. Will allow
+// installing local builds over TeamCity ones, provided signing is consistent, which is handy.
+def buildNumber = getTeamCityBuildNumber()?.toInteger() ?: 9999
+
+def versionCodeGen = versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+def versionNameGen = "${versionMajor}.${versionMinor}.${versionPatch}"
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        applicationId "signon.oswego.suny.signson"
+        minSdkVersion 18
+        targetSdkVersion 19
+        versionCode versionCodeGen
+        versionName versionNameGen
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def apkSuffix = "-${variant.mergedFlavor.versionName}"
+            def originalApkFile = output.outputFile
+            output.outputFile = file(originalApkFile.absolutePath.replace(".apk", "${apkSuffix}.apk"))
+        }
+    }
+}
+
+dependencies {
+    repositories {
+        maven {
+
+            url '../myorepository'
+        }
+    }
+
+    compile 'com.polysfactory.lib.glass.bluetooth:glass-bluetooth:0.1.2'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+
+}
+String getTeamCityBuildNumber() {
+    if (hasProperty('teamcity')) {
+        return teamcity['build.number']
+    } else if (hasProperty('overrideBuildNumber')) {
+        return overrideBuildNumber
+    }
+    return null
+}
