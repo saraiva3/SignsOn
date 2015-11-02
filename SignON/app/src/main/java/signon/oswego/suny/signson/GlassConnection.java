@@ -193,22 +193,6 @@ public class GlassConnection {
         writeAsync(GlassMessage.createTimelineMessage(text));
     }
 
-    public void requestScreenshot(){
-        Proto.Envelope envelope = CompanionMessagingUtil.newEnvelope();
-        Proto.ScreenShot screenShot = new Proto.ScreenShot();
-        screenShot.startScreenshotRequestC2G = true;
-        envelope.screenshot = screenShot;
-        writeAsync(envelope);
-    }
-
-    public void stopScreenshot(){
-        Proto.Envelope envelope = CompanionMessagingUtil.newEnvelope();
-        Proto.ScreenShot screenShot = new Proto.ScreenShot();
-        screenShot.stopScreenshotRequestC2G = true;
-        envelope.screenshot = screenShot;
-        writeAsync(envelope);
-    }
-
     public void write(Proto.Envelope envelope) {
         synchronized (STREAM_WRITE_LOCK) {
             try {

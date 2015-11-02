@@ -8,18 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.glass.companion.CompanionMessagingUtil;
-import com.google.glass.companion.Proto.Envelope;
-import com.google.glass.companion.Proto.MotionEvent;
-import com.google.glass.companion.Proto.MotionEvent.PointerCoords;
-import com.google.glass.companion.Proto.MotionEvent.PointerProperties;
-import com.google.googlex.glass.common.proto.TimelineNano;
-import com.google.googlex.glass.common.proto.TimelineNano.SourceType;
-import com.google.googlex.glass.common.proto.TimelineNano.TimelineItem;
-
 public class GlassMessage {
 
     public static final int ACTION_DOWN = 0;

@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import com.thalmic.myo.Hub;
 
 public class RemoteMyoConnection extends Service {
-    public static final String ACTION_STOP_MYO_GLASS = "ACTION_STOP_MYO_GLASS";
 
     private MyoServices mMyoRemote;
     private StopReceiver mStopReceiver = new StopReceiver();
@@ -63,7 +62,7 @@ public class RemoteMyoConnection extends Service {
             // Will do nothing if already paired to Myo at given address.
             Hub.getInstance().attachByMacAddress(address);
         }
-        registerReceiver(mStopReceiver, new IntentFilter(ACTION_STOP_MYO_GLASS));
+        registerReceiver(mStopReceiver, new IntentFilter("ACTION_STOP_MYO_GLASS"));
     }
 
     @Override

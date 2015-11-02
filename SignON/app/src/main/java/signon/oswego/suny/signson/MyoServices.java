@@ -5,33 +5,16 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.RemoteViews;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.util.Log;
-import android.widget.RemoteViews;
 
 import com.thalmic.myo.AbstractDeviceListener;
-import com.thalmic.myo.Arm;
 import com.thalmic.myo.Myo;
 import com.thalmic.myo.Pose;
-import com.thalmic.myo.XDirection;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MyoServices extends AbstractDeviceListener {
-    private static final String TAG = "MyoRemote";
 
     private static final int NOTIFICATION_ID = 1;
 
@@ -41,7 +24,6 @@ public class MyoServices extends AbstractDeviceListener {
     private GlassConnection mGlass = new GlassConnection();
 
     public MyoServices(Service service) {
-        Log.i(TAG, "Starting Service");
         mService = service;
 
         showDisconnectedNotification();
@@ -55,7 +37,6 @@ public class MyoServices extends AbstractDeviceListener {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                Log.i(TAG, "Connecting to Glass device.");
                 mGlass.connect(address);
                 return null;
             }
@@ -103,16 +84,7 @@ public class MyoServices extends AbstractDeviceListener {
             myo.unlock(Myo.UnlockType.TIMED);
             myo.notifyUserAction();
         }
-
-        // Flip the wave poses if using the left arm.
-        if (myo.getArm() == Arm.LEFT) {
-            if (pose == Pose.WAVE_IN) {
-                pose = Pose.WAVE_OUT;
-            } else if (pose == Pose.WAVE_OUT) {
-                pose = Pose.WAVE_IN;
-            }
-        }
-
+       // Pose.UNKNOWN Get new positions maybe
         if (pose == Pose.WAVE_IN) {
             mGlass.swipeLeft();
         } else if (pose == Pose.WAVE_OUT) {
@@ -140,7 +112,7 @@ public class MyoServices extends AbstractDeviceListener {
     }
 
     private void showNotification(int drawable, int title, int text) {
-        // We should add a closeIntent
+
         PendingIntent closeIntent = PendingIntent.getBroadcast(mService, 0,
                 new Intent(RemoteMyoConnection.ACTION_STOP_MYO_GLASS), PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent openIntent = PendingIntent.getActivity(mService, 0,

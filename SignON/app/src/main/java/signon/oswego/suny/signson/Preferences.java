@@ -5,28 +5,33 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 public class Preferences {
-    private static final String PREF_MAC_ADDRESS = "PREF_MAC_ADDRESS";
-    private static final String PREF_GLASS_MAC_ADDRESS = "PREF_GLASS_MAC_ADDRESS";
+    private static final String CELLPHONE_ADDRESS = "PREF_MAC_ADDRESS";
+    private static final String GLASS_ADDRESS = "PREF_GLASS_MAC_ADDRESS";
 
     private SharedPreferences mPrefs;
 
     public Preferences(Context context) {
+
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public String getMyoAddress() {
-        return mPrefs.getString(PREF_MAC_ADDRESS, "");
+
+        return mPrefs.getString(CELLPHONE_ADDRESS, "");
     }
 
     public void setMyoAddress(String address) {
-        mPrefs.edit().putString(PREF_MAC_ADDRESS, address).apply();
+
+        mPrefs.edit().putString(CELLPHONE_ADDRESS, address).apply();
     }
 
     public String getGlassAddress() {
-        return mPrefs.getString(PREF_GLASS_MAC_ADDRESS, "");
+
+        return mPrefs.getString(GLASS_ADDRESS, "");
     }
 
     public void setGlassAddress(String address) {
-        mPrefs.edit().putString(PREF_GLASS_MAC_ADDRESS, address).apply();
+
+        mPrefs.edit().putString(GLASS_ADDRESS, address).apply();
     }
 }

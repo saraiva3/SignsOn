@@ -9,7 +9,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,9 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import com.google.glass.companion.Proto;
 import com.thalmic.myo.AbstractDeviceListener;
@@ -44,25 +41,12 @@ import java.util.Set;
 
 
 public class Main extends Activity implements GlassConnection.GlassConnectionListener {
-    private static final String TAG = "ConfigActivity";
-
     private static final int REQUEST_ENABLE_BT = 1;
-
     private RemoteMyoConnection mService;
     private StopReceiver mStopReceiver = new StopReceiver();
-
     private Preferences mPrefs;
     private DeviceListener mListener;
-
-    private TextView mMyoStatusView;
-    private TextView mGlassStatusView;
-    private ImageView mScreencastView;
-    private Button mScreencastButton;
-    private TextView mArmView;
-    private TextView mPoseView;
-
     private GlassConnection mGlass;
-    private boolean mScreencastEnabled = false;
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -95,22 +79,22 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_config);
-        mMyoStatusView = (TextView) findViewById(R.id.myo_status);
+       // setContentView(R.layout.activity_config);
+       /* mMyoStatusView = (TextView) findViewById(R.id.myo_status);
         mGlassStatusView = (TextView) findViewById(R.id.glass_status);
         mScreencastView = (ImageView) findViewById(R.id.screenshot);
         mScreencastButton = (Button) findViewById(R.id.btnStartScreencast);
         mPoseView = (TextView) findViewById(R.id.pose);
-        mArmView = (TextView) findViewById(R.id.arm);
+        mArmView = (TextView) findViewById(R.id.arm);*/
 
-        updateScreencastState();
+      ///  updateScreencastState();
 
         mPrefs = new Preferences(this);
 
         Intent intent = new Intent(this, RemoteMyoConnection.class);
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
 
-        registerReceiver(mStopReceiver, new IntentFilter(RemoteMyoConnection.ACTION_STOP_MYO_GLASS));
+      //  registerReceiver(mStopReceiver, new IntentFilter(RemoteMyoConnection.ACTION_STOP_MYO_GLASS));
     }
 
     @Override
@@ -125,7 +109,7 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
     @Override
     protected void onStop() {
         super.onStop();
-        mGlass.stopScreenshot();
+
     }
 
     @Override
@@ -150,16 +134,16 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.config, menu);
+     //   getMenuInflater().inflate(R.menu.config, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.kill_myglass:
-                killMyGlass();
-                return true;
+         //   case R.id.kill_myglass:
+             //   killMyGlass();
+              //  return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -172,32 +156,16 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
         startActivity(intent);
     }
 
-    public void onScreencastBtn(View view) {
-        setScreencastEnabled(!mScreencastEnabled);
-        if (mScreencastEnabled){
-            mGlass.requestScreenshot();
-        } else{
-            mGlass.stopScreenshot();
-        }
-    }
 
-    private void setScreencastEnabled(boolean enable) {
-        mScreencastEnabled = enable;
-        updateScreencastState();
-    }
 
-    private void updateScreencastState(){
-        mScreencastButton.setText(mScreencastEnabled ? R.string.stop : R.string.start);
-        mScreencastView.setVisibility(mScreencastEnabled ? View.VISIBLE : View.INVISIBLE);
-    }
 
     private void updateGlassStatus(GlassConnection.ConnectionStatus connectionStatus) {
-        mGlassStatusView.setText(connectionStatus.name());
+       // mGlassStatusView.setText(connectionStatus.name());
     }
 
     public void onChooseMyoClicked(View view) {
         if (mService == null) {
-            Log.w(TAG, "No MyoRemoveService. Can't choose Myo.");
+            Log.w("", "No MyoRemoveService. Can't choose Myo.");
             return;
         }
 
@@ -254,40 +222,44 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
         @Override
         public void onConnect(Myo myo, long timestamp) {
             mPrefs.setMyoAddress(myo.getMacAddress());
-            mMyoStatusView.setText(R.string.connected);
-            mPoseView.setText("LOCKED");
+          //  mMyoStatusView.setText(R.string.connected);
+          //  mPoseView.setText("LOCKED");
         }
 
         @Override
         public void onDisconnect(Myo myo, long timestamp) {
-            mMyoStatusView.setText(R.string.disconnected);
-            mArmView.setText("");
-            mPoseView.setText("");
+         //   mMyoStatusView.setText(R.string.disconnected);
+          //  mArmView.setText("");
+         //   mPoseView.setText("");
         }
 
         @Override
         public void onArmSync(Myo myo, long timestamp, Arm arm, XDirection xDirection) {
-            mArmView.setText(arm == Arm.LEFT ? R.string.myo_arm_left : R.string.myo_arm_right);
+            //
+            if(arm == Arm.LEFT){
+              //  mArmView.setText("Use in the Right Arm");
+            }
+          //  mArmView.setText( R.string.myo_arm_right);
         }
-
+/*
         @Override
         public void onArmUnsync(Myo myo, long timestamp) {
             mArmView.setText(R.string.myo_arm_unknown);
-        }
+        }*/
 
         @Override
         public void onPose(Myo myo, long timestamp, final Pose pose) {
-            mPoseView.setText(pose.name());
+           // mPoseView.setText(pose.name());
         }
 
         @Override
         public void onLock(Myo myo, long timestamp) {
-            mPoseView.setText("LOCKED");
+          //  mPoseView.setText("LOCKED");
         }
 
         @Override
         public void onUnlock(Myo myo, long timestamp) {
-            mPoseView.setText("UNLOCKED");
+         //   mPoseView.setText("UNLOCKED");
         }
     }
 
@@ -295,7 +267,7 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
     public void onConnectionStatusChanged(GlassConnection.ConnectionStatus status) {
         updateGlassStatus(status);
         if (status != GlassConnection.ConnectionStatus.DISCONNECTED) {
-            setScreencastEnabled(false);
+        //    setScreencastEnabled(false);
         }
     }
 
@@ -310,7 +282,7 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mScreencastView.setImageBitmap(bp);
+                      //  mScreencastView.setImageBitmap(bp);
                     }
                 });
             }
