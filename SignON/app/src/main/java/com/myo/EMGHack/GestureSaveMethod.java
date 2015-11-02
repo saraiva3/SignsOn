@@ -4,9 +4,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-/**
- * Created by naoki on 15/04/17.
- */
 public class GestureSaveMethod {
     private final static String TAG = "Myo_compare";
     private final static String FileName = "compareData.dat";

@@ -3,7 +3,7 @@ package com.myo.EMGHack;
 import java.util.ArrayList;
 
 /**
- * Created by naoki on 15/04/09.
+
  *
  * This class help you to read the raw EMG-data from Myo.
  * One raw byte array has 16 byte data. But Myo sensors are only 8.

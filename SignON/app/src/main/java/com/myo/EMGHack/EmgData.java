@@ -3,11 +3,7 @@ package com.myo.EMGHack;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-/**
- * Created by naoki on 15/04/09.
- *
- */
- 
+
 public class EmgData {
     private ArrayList<Double> emgData = new ArrayList<>();
 
@@ -15,7 +11,7 @@ public class EmgData {
     }
 
     public EmgData(EmgCharacteristicData characteristicData) {
-        this.emgData = new ArrayList<>( characteristicData.getEmg8Data_abs().getEmgArray() );
+        this.emgData = new ArrayList<Double>( characteristicData.getEmg8Data_abs().getEmgArray() );
     }
 
     public EmgData(ArrayList<Double> emgData) {

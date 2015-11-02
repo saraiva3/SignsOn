@@ -1,8 +1,5 @@
 package com.myo.EMGHack;
 
-/**
- * Created by naoki on 15/04/16.
- */
 public class GestureSaveModel implements IGestureDetectModel{
     private final static Object LOCK = new Object();
 

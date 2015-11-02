@@ -1,7 +1,7 @@
 package com.myo.EMGHack;
 
 /**
- * Created by naoki on 15/04/13.
+
  * 
  * This class is List of Myo Commands, allowing to
  * [https://github.com/thalmiclabs/myo-bluetooth].

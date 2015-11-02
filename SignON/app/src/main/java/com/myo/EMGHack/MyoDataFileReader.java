@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-/**
- * Created by naoki on 15/04/09.
- */
 public class MyoDataFileReader {
     private static File BASE_DIR = new File("sdcard");
     public static void init(File base){

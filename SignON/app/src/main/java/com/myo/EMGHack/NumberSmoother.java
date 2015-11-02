@@ -2,9 +2,7 @@ package com.myo.EMGHack;
 
 import java.util.ArrayList;
 
-/**
- * Created by naoki on 15/04/17.
- */
+
 public class NumberSmoother {
     private final static int SMOOTHING_LENGTH = 5;
     private final static int THRESHOLD_LENGTH = 3;

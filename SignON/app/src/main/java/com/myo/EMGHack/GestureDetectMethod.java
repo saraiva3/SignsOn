@@ -2,9 +2,6 @@ package com.myo.EMGHack;
 
 import java.util.ArrayList;
 
-/**
- * Created by naoki on 15/04/17.
- */
 public class GestureDetectMethod {
     private final static int COMPARE_NUM = 3;
     private final static int STREAM_DATA_LENGTH = 5;

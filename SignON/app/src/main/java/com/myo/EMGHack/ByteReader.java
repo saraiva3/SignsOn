@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 /**
- * Created by naoki on 15/04/06.
+
  * 
  * This class help you to read the byte line from Myo.
  * But be carefully to byte array size. There is no limitation of get() method, 
