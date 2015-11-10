@@ -2,12 +2,12 @@ package com.myo.EMGHack;
 
 /**
 
- * 
+ *
  * This class is List of Myo Commands, allowing to
  * [https://github.com/thalmiclabs/myo-bluetooth].
  *
  */
- 
+
 public class MyoCommandList {
     private byte[] send_bytes_data;
 

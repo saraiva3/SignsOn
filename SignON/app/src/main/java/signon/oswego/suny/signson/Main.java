@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -88,7 +89,7 @@ public class Main extends Activity implements GlassConnection.GlassConnectionLis
         mArmView = (TextView) findViewById(R.id.arm);*/
 
       ///  updateScreencastState();
-
+        BluetoothManager mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mPrefs = new Preferences(this);
 
         Intent intent = new Intent(this, RemoteMyoConnection.class);

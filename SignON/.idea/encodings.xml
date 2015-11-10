@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/ByteReader.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/EmgCharacteristicData.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/EmgData.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/GestureDetectMethod.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/GestureDetectModel.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/GestureDetectModelManager.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/GestureDetectSendResultAction.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/GestureSaveMethod.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/GestureSaveModel.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/IGestureDetectAction.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/IGestureDetectModel.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/ListActivity.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/MainActivity.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/MyoCommandList.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/MyoDataFileReader.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/MyoGattCallback.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/NopModel.java" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/myo/EMGHack/NumberSmoother.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/ByteReader.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/EmgCharacteristicData.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/EmgData.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/GestureDetectMethod.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/GestureDetectModel.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/GestureDetectModelManager.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/GestureDetectSendResultAction.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/GestureSaveMethod.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/GestureSaveModel.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/IGestureDetectAction.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/IGestureDetectModel.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/MyoDataFileReader.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/MyoGattCallback.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/NopModel.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/signon/oswego/suny/signson/NumberSmoother.java" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

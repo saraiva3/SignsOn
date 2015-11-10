@@ -30,6 +30,7 @@ android {
 
         }
     }
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def apkSuffix = "-${variant.mergedFlavor.versionName}"
