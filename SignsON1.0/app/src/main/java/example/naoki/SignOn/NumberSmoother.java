@@ -8,7 +8,7 @@ public class NumberSmoother {
     private final static int THRESHOLD_LENGTH = 3;
 
     private ArrayList<Integer> gestureNumArray = new ArrayList<>();
-    private int[] numCounter = {0,0,0};
+    private int[] numCounter = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     private int storageDataCount = 0;
 
     public void addArray(Integer gestureNum) {

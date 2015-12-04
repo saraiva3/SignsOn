@@ -111,17 +111,17 @@ public final class GlassDevice {
      */
     public void connect(String address,TextView text) {
 
-       // text.setText("inicio");
+        text.setText("Connecting");
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
-           // text.setText("Error");
+            text.setText("Error");
 
             return;
         }
 
         BluetoothDevice bluetoothDevice = bluetoothAdapter.getRemoteDevice(address);
         try {
-         //  text.setText("Conectado");
+          text.setText("Connected");
             mSocket = bluetoothDevice.createRfcommSocketToServiceRecord(SECURE_UUID);
             mSocket.connect();
             setConnectionStatus(ConnectionStatus.CONNECTED);

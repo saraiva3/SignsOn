@@ -43,6 +43,10 @@
             android:name="example.naoki.SignOn.LanguageOptions"
             android:label="@string/title_activity_language_options" >
         </activity>
+        <activity
+            android:name="example.naoki.SignOn.Help"
+            android:label="@string/title_activity_help" >
+        </activity>
     </application>
 
 </manifest>

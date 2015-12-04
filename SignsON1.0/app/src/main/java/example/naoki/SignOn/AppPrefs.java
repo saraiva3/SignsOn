@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class AppPrefs {
+import java.io.Serializable;
+
+public class AppPrefs implements Serializable {
     private static final String PREF_MAC_ADDRESS = "PREF_MAC_ADDRESS";
     private static final String PREF_GLASS_MAC_ADDRESS = "PREF_GLASS_MAC_ADDRESS";
 

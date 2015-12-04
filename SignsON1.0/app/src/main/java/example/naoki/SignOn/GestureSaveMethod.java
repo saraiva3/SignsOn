@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class GestureSaveMethod {
     private final static String TAG = "Myo_compare";
     private final static String FileName = "compareData.dat";
-
-    private final static int COMPARE_NUM = 3;
+        //cHANGE TO ADD MORE MOVES
+    private final static int COMPARE_NUM = 26;
     private final static int SAVE_DATA_LENGTH = 5;
     private final static int AVERAGING_LENGTH = 10;
 

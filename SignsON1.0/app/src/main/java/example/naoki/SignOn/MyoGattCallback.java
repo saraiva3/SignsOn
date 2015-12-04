@@ -344,7 +344,7 @@ public class MyoGattCallback extends BluetoothGattCallback {
                         dataList1_a[inputIndex][0] = emgDatas[0+inputIndex];
                         dataList1_b[inputIndex][0] = emgDatas[7+inputIndex];
                     }
-                    // 折れ線グラフ
+
                     int number = 50;
                     int addNumber = 100;
                     Line line = new Line();
@@ -352,16 +352,16 @@ public class MyoGattCallback extends BluetoothGattCallback {
                         number--;
                         addNumber--;
 
-                        //１点目add
+
                         if(number != 0){
                         for(int setDatalistIndex = 0;setDatalistIndex < 8;setDatalistIndex++){
                             dataList1_a[setDatalistIndex][number] = dataList1_a[setDatalistIndex][number - 1];
                         }
                         }
                         LinePoint linePoint = new LinePoint();
-                        linePoint.setY(dataList1_a[nowGraphIndex][number]); //ランダムで生成した値をSet
+                        linePoint.setY(dataList1_a[nowGraphIndex][number]);
                         linePoint.setX(addNumber); //x軸を１ずつずらしてSet
-                        //linePoint.setColor(Color.parseColor("#9acd32")); // 丸の色をSet
+                        //linePoint.setColor(Color.parseColor("#9acd32"));
 
                         line.addPoint(linePoint);
                         //2点目add
@@ -373,20 +373,20 @@ public class MyoGattCallback extends BluetoothGattCallback {
                             }
                         }
                         linePoint = new LinePoint();
-                        linePoint.setY(dataList1_b[nowGraphIndex][number]); //ランダムで生成した値をSet
+                        linePoint.setY(dataList1_b[nowGraphIndex][number]);
                         linePoint.setX(addNumber); //x軸を１ずつずらしてSet
-                        //linePoint.setColor(Color.parseColor("#9acd32")); // 丸の色をSet
+                        //linePoint.setColor(Color.parseColor("#9acd32"));
 
                         line.addPoint(linePoint);
                     }
                     if(nowButton != null) {
-                        //line.setColor(Color.parseColor("#9acd32")); // 線の色をSet
-                        line.setColor(((ColorDrawable)nowButton.getBackground()).getColor()); // 線の色をSet
+                        //line.setColor(Color.parseColor("#9acd32"));
+                        line.setColor(((ColorDrawable)nowButton.getBackground()).getColor());
                     }
                     line.setShowingPoints(false);
                     lineGraph.addLine(line);
-                    lineGraph.setRangeY(-128, 128); // 表示するY軸の最低値・最高値 今回は0から1まで
-                    //graph.setRangeX(0, 100); // 表示するX軸の最低値・最高値　今回は0からデータベースの取得した
+                    lineGraph.setRangeY(-128, 128);
+                    //graph.setRangeX(0, 100);
                 }
             });
 

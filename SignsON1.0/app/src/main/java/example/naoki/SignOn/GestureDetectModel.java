@@ -26,7 +26,7 @@ public class GestureDetectModel implements IGestureDetectModel{
 
     @Override
     public void action() {
-        action.action("DETECT");
+        action.action("Detect");
     }
 
     public void action(String message) {

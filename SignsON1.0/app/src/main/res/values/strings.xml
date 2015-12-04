@@ -19,4 +19,5 @@
         completions."
     </string>
     <string name="title_activity_language_options">LanguageOptions</string>
+    <string name="title_activity_help">Help</string>
 </resources>

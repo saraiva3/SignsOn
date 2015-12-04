@@ -20,10 +20,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="PASSWORD"
         android:id="@+id/password"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:editable="true"
-      />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -31,9 +30,9 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/loginBtn"
-        android:layout_marginTop="66dp"
         android:layout_below="@+id/password"
-        android:layout_toStartOf="@+id/textView6" />
+        android:layout_toStartOf="@+id/password"
+        android:layout_marginTop="66dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -41,8 +40,9 @@
         android:layout_height="wrap_content"
         android:text="Create"
         android:id="@+id/createBtn"
+
         android:layout_alignTop="@+id/loginBtn"
-        android:layout_toEndOf="@+id/login" />
+        android:layout_alignStart="@+id/status" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,6 +59,6 @@
         android:text="Status"
         android:id="@+id/status"
         android:layout_below="@+id/createBtn"
-        android:layout_toEndOf="@+id/textView6" />
+        android:layout_toEndOf="@+id/password" />
 
 </RelativeLayout>

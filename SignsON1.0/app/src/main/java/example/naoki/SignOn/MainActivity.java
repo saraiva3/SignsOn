@@ -37,14 +37,15 @@ import java.util.Set;
 
 import example.naoki.ble_myo.R;
 
+
 public class MainActivity extends ActionBarActivity implements BluetoothAdapter.LeScanCallback, GlassDevice.GlassConnectionListener {
     public static final int MENU_LIST = 0;
-    public static final int MENU_BYE = 1;
-    public static final int MENU_OPTIONS = 2;
-    /** Device Scanning Time (ms) */
-    private static final long SCAN_PERIOD = 5000;
+    public static final int MENU_BYE = 2;
+    public static final int MENU_OPTIONS = 1;
+    public static final int MENU_HELP = 3;
+    public static final char letters[] = { 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','X','Z','W','Y'};
+    private static final long SCAN_PERIOD = 6000;
 
-    /** Intent code for requesting Bluetooth enable */
     private static final int REQUEST_ENABLE_BT = 1;
     private static final int REQUEST_LANGUAGE = 1;
     private static final String TAG = "BLE_Myo";
@@ -66,48 +67,23 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
     private GestureDetectMethod detectMethod;
     private TextView text;
     private LineGraph graph;
-   /* private Button graphButton1;
-    private Button graphButton2;
-    private Button graphButton3;
-    private Button graphButton4;
-    private Button graphButton5;
-    private Button graphButton6;
-    private Button graphButton7;
-    private Button graphButton8;*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //ready
         graph = (LineGraph) findViewById(R.id.holo_graph_view);
-       /* graphButton1 = (Button) findViewById(R.id.btn_emg1);
-        graphButton2 = (Button) findViewById(R.id.btn_emg2);
-        graphButton3 = (Button) findViewById(R.id.btn_emg3);
-        graphButton4 = (Button) findViewById(R.id.btn_emg4);
-        graphButton5 = (Button) findViewById(R.id.btn_emg5);
-        graphButton6 = (Button) findViewById(R.id.btn_emg6);
-        graphButton7 = (Button) findViewById(R.id.btn_emg7);*/
         text = (TextView) findViewById(R.id.textView);
-      //  graphButton8 = (Button) findViewById(R.id.btn_emg8);
         mPrefs = new AppPrefs(this);
-
-        //set color
-       /* graphButton1.setBackgroundColor(Color.argb(0x66, 0xff, 0, 0xff));
-        graphButton2.setBackgroundColor(Color.argb(0x66, 0xff, 0x00, 0x00));
-        graphButton3.setBackgroundColor(Color.argb(0x66, 0x66, 0x33, 0xff));
-        graphButton4.setBackgroundColor(Color.argb(0x66, 0xff, 0x66, 0x33));
-        graphButton5.setBackgroundColor(Color.argb(0x66, 0xff, 0x33, 0x66));
-        graphButton6.setBackgroundColor(Color.argb(0x66, 0x00, 0x33, 0xff));
-        graphButton7.setBackgroundColor(Color.argb(0x66, 0x00, 0x33, 0x33));
-        graphButton8.setBackgroundColor(Color.argb(0x66, 0x66, 0xcc, 0x66));*/
-
         emgDataText = (TextView)findViewById(R.id.emgDataTextView);
         gestureText = (TextView)findViewById(R.id.gestureTextView);
         mHandler = new Handler();
 
+
         startNopModel();
+
+
         mGlass = new GlassDevice();
         BluetoothManager mBluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
@@ -116,14 +92,11 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
         deviceName = intent.getStringExtra(ListActivity.TAG);
 
         if (deviceName != null) {
-            // Ensures Bluetooth is available on the device and it is enabled. If not,
-            // displays a dialog requesting user permission to enable Bluetooth.
+
             if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
             } else {
-                // Scanning Time out by Handler.
-                // The device scanning needs high energy.
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -138,10 +111,10 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menu.add(0, MENU_LIST, 0, "Find Myo");
-        menu.add(0, MENU_BYE, 0, "Good Bye");
-        menu.add(0, MENU_OPTIONS, 0, "Options");
+        menu.add(0, MENU_OPTIONS, 0, "Language Options");
+        menu.add(0, MENU_BYE, 0, "Close Connections");
+        menu.add(0, MENU_HELP, 0, "Help");
         return true;
     }
 
@@ -154,50 +127,43 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
+
         switch (id) {
             case MENU_LIST:
-//                Log.d("Menu","Select Menu A");
                 Intent intent = new Intent(this,ListActivity.class);
                 startActivity(intent);
                 return true;
 
             case MENU_BYE:
-//                Log.d("Menu","Select Menu B");
                 closeBLEGatt();
-                Toast.makeText(getApplicationContext(), "Close GATT", Toast.LENGTH_SHORT).show();
+                mGlass.closeGlassDevice();
+                Toast.makeText(getApplicationContext(), "Closing all Connections", Toast.LENGTH_SHORT).show();
                 startNopModel();
                 return true;
             case MENU_OPTIONS:
-              Log.d("Menu","Select Menu B");
                 Intent intent2 = new Intent(this,LanguageOptions.class);
-                startActivityForResult(intent2,REQUEST_LANGUAGE);
-
+                startActivityForResult(intent2, REQUEST_LANGUAGE);
+                return true;
+            case MENU_HELP:
+                Intent intent3 = new Intent(this,Help.class);
+                intent3.putExtra("GlassAdrres", mPrefs.getGlassAddress());
+                intent3.putExtra("MyoAddress", mPrefs.getMyoAddress());
+                startActivity(intent3);
                 return true;
 
         }
         return false;
     }
 
-    /** Define of BLE Callback */
+
     @Override
     public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
         if (deviceName.equals(device.getName())) {
             mBluetoothAdapter.stopLeScan(this);
-            // Trying to connect GATT
-            HashMap<String,View> views = new HashMap<String,View>();
-            //put GraphView
-            views.put("graph",graph);
-            //put Button1〜8
 
-           /* views.put("btn1",graphButton1);
-            views.put("btn2",graphButton2);
-            views.put("btn3",graphButton3);
-            views.put("btn4",graphButton4);
-            views.put("btn5",graphButton5);
-            views.put("btn6",graphButton6);
-            views.put("btn7",graphButton7);
-            views.put("btn8",graphButton8);*/
+            HashMap<String,View> views = new HashMap<String,View>();
+            views.put("graph",graph);
+
 
             mMyoCallback = new MyoGattCallback(mHandler, emgDataText, views);
             mBluetoothGatt = device.connectGatt(this, false, mMyoCallback);
@@ -205,16 +171,9 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
         }
     }
 
-    public void onClickVibration(View v){
-        if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendVibration3())) {
-            Log.d(TAG, "False Vibrate");
-        }
-    }
+    public void onClickTest(View v) {
+       mMyoCallback.setMyoControlCommand(commandList.sendVibration3());
 
-    public void onClickUnlock(View v) {
-        if (mBluetoothGatt == null || !mMyoCallback.setMyoControlCommand(commandList.sendUnLock())) {
-            Log.d(TAG,"False UnLock");
-        }
     }
 
     public void onClickEMG(View v) {
@@ -223,20 +182,14 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
         } else {
             saveMethod  = new GestureSaveMethod();
             if (saveMethod.getSaveState() == GestureSaveMethod.SaveState.Have_Saved) {
-                gestureText.setText("DETECT Ready");
+                gestureText.setText("Detect Ready");
             } else {
-                gestureText.setText("Teach me \'Gesture\'");
+                gestureText.setText("Teach me the letters in Order");
             }
         }
     }
 
-    public void onClickNoEMG(View v) {
-        if (mBluetoothGatt == null
-                || !mMyoCallback.setMyoControlCommand(commandList.sendUnsetData())
-                || !mMyoCallback.setMyoControlCommand(commandList.sendNormalSleep())) {
-            Log.d(TAG,"False Data Stop");
-        }
-    }
+
 
     public void onClickSave(View v) {
       //  mGlass.postMessage("Envie");
@@ -249,12 +202,13 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
             startSaveModel();
         }
         saveMethod.setState(GestureSaveMethod.SaveState.Now_Saving);
-        gestureText.setText("Saving ; " + (saveMethod.getGestureCounter() + 1));
+
+        gestureText.setText("Saving "+letters[saveMethod.getGestureCounter()]);
     }
 
     public void onClickDetect(View v) {
         if (saveMethod.getSaveState() == GestureSaveMethod.SaveState.Have_Saved) {
-            gestureText.setText("Let's Go !!");
+           // gestureText.setText("Let's Go !!");
             detectMethod = new GestureDetectMethod(saveMethod.getCompareDataList());
             detectModel = new GestureDetectModel(detectMethod);
             startDetectModel();
@@ -288,12 +242,9 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
 
     public void setGestureText(final String message) {
 
-        Log.d("dada",message);
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-               // mGlass.postMessage(message);
-
                 gestureText.setText(message);
             }
         });
@@ -301,18 +252,14 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-
             mGlass = mGlass.getGlassDevice();
             mGlass.registerListener(MainActivity.this);
             updateGlassStatus(mGlass.getConnectionStatus());
-
             String glassAddress = mPrefs.getGlassAddress();
             if (!TextUtils.isEmpty(glassAddress)) {
                 mGlass.connectGlassDevice(glassAddress,text);
             }
-            text.setText("sadasdasdas");
         }
-
         @Override
         public void onServiceDisconnected(ComponentName name) {
             mGlass = null;
@@ -349,12 +296,12 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
                 /*if (mGlass != null && mGlass.getConnectionStatus() == GlassDevice.ConnectionStatus.CONNECTED) {
                     mGlass.closeGlassDevice();
                 }*/
-               //text.setText(glassAddresses[which]);
-                mGlass.connectGlassDevice(glassAddresses[which],text);
+                //text.setText(glassAddresses[which]);
+                mGlass.connectGlassDevice(glassAddresses[which], text);
 
                 // Remember MAC address for next time.
 
-                //mPrefs.setGlassAddress(glassAddresses[which]);
+                mPrefs.setGlassAddress(glassAddresses[which]);
             }
         });
         builder.show();
@@ -370,7 +317,11 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LANGUAGE && resultCode == RESULT_OK) {
             String result=data.getStringExtra("result");
-            Log.d("DADSADASDSADASDAS","sadasdsadasdsa");
+            Log.d("Tag",result);
+            if(result.equals("pt")){
+
+            }
+
         }
 
         if (requestCode == REQUEST_ENABLE_BT && resultCode == RESULT_OK){
@@ -384,7 +335,7 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
         }
     }
     private void updateGlassStatus(GlassDevice.ConnectionStatus connectionStatus) {
-       // text.setText(connectionStatus.name());
+        text.setText(connectionStatus.name());
     }
     @Override
     public void onConnectionStatusChanged(GlassDevice.ConnectionStatus status) {
@@ -403,7 +354,7 @@ public class MainActivity extends ActionBarActivity implements BluetoothAdapter.
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                       // mScreencastView.setImageBitmap(bp);
+
                     }
                 });
             }

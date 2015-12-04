@@ -24,7 +24,7 @@ import example.naoki.ble_myo.R;
 
 public class ListActivity extends ActionBarActivity implements BluetoothAdapter.LeScanCallback {
     public static final int MENU_SCAN = 0;
-    public static final int LIST_DEVICE_MAX = 5;
+
 
     public static String TAG = "BluetoothList";
 
@@ -84,28 +84,10 @@ public class ListActivity extends ActionBarActivity implements BluetoothAdapter.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_list, menu);
-        menu.add(0, MENU_SCAN, 0, "Scan");
 
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == MENU_SCAN) {
-            scanDevice();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void onClickScan(View v) {
         scanDevice();
@@ -149,7 +131,7 @@ public class ListActivity extends ActionBarActivity implements BluetoothAdapter.
                     mBluetoothAdapter.stopLeScan(ListActivity.this);
 
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), "Stop Device Scan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Press Scan Again Please", Toast.LENGTH_SHORT).show();
 
                 }
             }, SCAN_PERIOD);

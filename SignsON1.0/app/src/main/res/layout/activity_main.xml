@@ -34,7 +34,7 @@
         android:id="@+id/bSave"
         android:onClick="onClickSave"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_toEndOf="@+id/button2" />
 
     <Button
         android:layout_width="wrap_content"
@@ -51,8 +51,8 @@
         android:text="Gesture"
         android:id="@+id/gestureTextView"
         android:textSize="25dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp" />
+        android:layout_above="@+id/imageView2"
+        android:layout_toEndOf="@+id/button3" />
 
     <com.echo.holographlibrary.LineGraph
         android:id="@+id/holo_graph_view"
@@ -86,5 +86,14 @@
 
         android:layout_above="@+id/bSave"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test MYO"
+        android:id="@+id/button3"
+        android:layout_alignParentBottom="true"
+        android:onClick="onClickTest"
+        android:layout_alignStart="@+id/emgDataTextView" />
 
 </RelativeLayout>
